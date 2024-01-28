@@ -22,4 +22,6 @@ export class PatientService {
         console.log("inside patient service");
         return createdPatient.save();
     }
+
+    // async createPatientProfile()
 }

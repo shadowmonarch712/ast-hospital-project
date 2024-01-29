@@ -4,6 +4,7 @@ import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { encodePassword } from 'src/utils/bcrypt';
 import { CreatePatientUser } from './dto/createPatientUser.dto';
+import { createPatientProfile } from './dto/createPatientProfile.dto';
 
 @Injectable()
 export class PatientService {
@@ -23,5 +24,9 @@ export class PatientService {
         return createdPatient.save();
     }
 
+    async createPatientProfile(username: any, createPatientProfile: createPatientProfile) {
+      console.log(createPatientProfile)
+      return this.patientUserModel.updateOne({ username }, { $set: createPatientProfile });
+  }
     // async createPatientProfile()
 }

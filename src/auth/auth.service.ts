@@ -6,33 +6,13 @@ import { Model } from 'mongoose';
 import { PatientUser } from 'src/patient/Schemas/patientUser.schema';
 import { comparePasswords } from 'src/utils/bcrypt';
 
-// const fakeUsers = [
-//     {
-//         username : "test1",
-//         password : "test1"
-//     },
-//     {
-//         username : "test3",
-//         password : "3test"
-//     },
-
-// ]
 @Injectable()
 export class AuthService {
     constructor(private jwtService : JwtService,
         @InjectModel('PatientUser') private userModel: Model<PatientUser>){
 
     }
-    // validateUser({username, password} : AuthPayloadDto){
-    //     const findUser = fakeUsers.find(
-    //         (user) => user.username === username);
-    //         console.log(findUser);
-    //         if(!username) return null;
-    //         if(password === findUser.password){
-    //             const {password , ...user} = findUser;
-    //             return this.jwtService.sign(user)
-    //         }
-    // }
+    
     async validateUser({username, password} : AuthPayloadDto){
         const findUser = await this.userModel.findOne({ username });
         // console.log(findUser)

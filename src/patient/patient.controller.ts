@@ -1,7 +1,8 @@
-import { Body, Controller, Get, Post, Req} from '@nestjs/common';
+import { Body, Controller, Get, Post, Put, Req} from '@nestjs/common';
 import { CreatePatientUser } from './dto/createPatientUser.dto';
 import { PatientService } from './patient.service';
 import { Request } from 'express';
+import { createPatientProfile } from './dto/createPatientProfile.dto';
 
 @Controller('patient')
 export class PatientController {
@@ -19,6 +20,9 @@ export class PatientController {
         return username;
     }
 
-    // @Post('createProfile')
-    // createPatientProfile()
+    @Put('profile')
+    updatePatientProfile(@Body() createPatientProfile: createPatientProfile, @Req() req: Request) {
+    // return this.patientService.updatePatientUser(req.user, updateProfileDto);
+    return this.patientService.createPatientProfile(req.user, createPatientProfile);
+}
 }

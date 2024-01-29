@@ -1,10 +1,37 @@
-// import { IsEmail, IsEmpty } from "class-validator";
+import { IsString, IsInt, IsDate, IsOptional } from 'class-validator';
 
-export class CreatePatientProfile {
+export class createPatientProfile {
 
-    // @IsEmail()
-    username: string;
+  @IsString()
+  readonly firstname: string;
 
-    // @IsEmpty()
-    password: string;
+  @IsString()
+  readonly secondname?: string;
+
+  @IsInt()
+  readonly age: number;
+
+  @IsString()
+  readonly gender: string;
+
+  @IsDate()
+  readonly dob: Date;
+
+  @IsString()
+readonly addressline1: string;
+
+  @IsString()
+  readonly addressline2?: string;
+
+  @IsString()
+  readonly addresscity?: string;
+
+  @IsString()
+  readonly addressstate?: string;
+
+  @IsInt()
+  readonly pincode?: number;
+
+  @IsInt()
+  readonly contact?: number;
 }

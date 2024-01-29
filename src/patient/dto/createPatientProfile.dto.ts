@@ -1,11 +1,29 @@
 import { IsString, IsInt, IsDate, IsOptional } from 'class-validator';
 
+export class Address {
+  @IsString()
+  readonly line1: string;
+
+  @IsString()
+  @IsOptional()
+  readonly line2?: string;
+
+  @IsString()
+  readonly city: string;
+
+  @IsString()
+  readonly state: string;
+
+  @IsInt()
+  readonly pincode: number;
+}
+
 export class createPatientProfile {
+  @IsString()
+  readonly firstname: string; 
 
   @IsString()
-  readonly firstname: string;
-
-  @IsString()
+  @IsOptional()
   readonly secondname?: string;
 
   @IsInt()
@@ -17,21 +35,8 @@ export class createPatientProfile {
   @IsDate()
   readonly dob: Date;
 
-  @IsString()
-readonly addressline1: string;
-
-  @IsString()
-  readonly addressline2?: string;
-
-  @IsString()
-  readonly addresscity?: string;
-
-  @IsString()
-  readonly addressstate?: string;
+  readonly address: Address;
 
   @IsInt()
-  readonly pincode?: number;
-
-  @IsInt()
-  readonly contact?: number;
+  readonly contact: number;
 }

@@ -5,11 +5,13 @@ import { InjectModel } from '@nestjs/mongoose';
 import { encodePassword } from 'src/utils/bcrypt';
 import { CreatePatientUser } from './dto/createPatientUser.dto';
 import { createPatientProfile } from './dto/createPatientProfile.dto';
+import { PatientProfile } from './Schemas/patientProfile.schema';
 
 @Injectable()
 export class PatientService {
     constructor(
         @InjectModel(PatientUser.name) private patientUserModel: Model<PatientUser>,
+        @InjectModel(PatientProfile.name) private patientProfileModel: Model<PatientProfile>,
       ) {}
 
     
@@ -26,7 +28,7 @@ export class PatientService {
 
     async createPatientProfile(username: any, createPatientProfile: createPatientProfile) {
       console.log(createPatientProfile)
-      return this.patientUserModel.updateOne({ username }, { $set: createPatientProfile });
+      return this.patientProfileModel.updateOne({ username }, { $set: createPatientProfile });
   }
     // async createPatientProfile()
 }

@@ -1,10 +1,10 @@
-// import { IsEmail, IsEmpty } from "class-validator";
+import { IsEmail, IsEmpty } from "class-validator";
 
 export class CreatePatientUser {
 
-    // @IsEmail()
+    @IsEmail()
     username: string;
 
-    // @IsEmpty()
+    @IsEmpty()
     password: string;
 }

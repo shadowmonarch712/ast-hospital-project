@@ -3,11 +3,14 @@ import { PatientService } from './patient.service';
 import { PatientController } from './patient.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { PatientUser, PatientUserSchema } from './Schemas/patientUser.schema';
-import { JwtMiddleware } from './middlewares/jwt.middleware'; // import your middleware
+import { JwtMiddleware } from './middlewares/jwt.middleware';
 import { JwtModule } from '@nestjs/jwt';
+import { PatientProfile, PatientProfileSchema } from './Schemas/patientProfile.schema';
 
 @Module({
-  imports: [MongooseModule.forFeature([{ name: PatientUser.name, schema: PatientUserSchema }]), JwtModule.register({
+  imports: [MongooseModule.forFeature([{ name: PatientUser.name, schema: PatientUserSchema }]),
+  MongooseModule.forFeature([{ name: PatientProfile.name, schema: PatientProfileSchema }]),
+  JwtModule.register({
     secret: 'abc123',
     signOptions: { expiresIn: '1h' },
   })],

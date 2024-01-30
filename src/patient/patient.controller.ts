@@ -1,9 +1,10 @@
-import { Body, Controller, Get, Patch, Post, Put, Req } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post, Put, Req } from '@nestjs/common';
 import { CreatePatientUser } from './dto/createPatientUser.dto';
 import { PatientService } from './patient.service';
 import { Request } from 'express';
 import { createPatientProfile } from './dto/createPatientProfile.dto';
 import { addPatientAppointments } from './dto/addPatientAppointments.dto';
+import { SummaryDTO } from './dto/appointmentSummary.dto';
 
 @Controller('patient')
 export class PatientController {
@@ -30,6 +31,14 @@ export class PatientController {
         const username = req.user;
         const { appointmentId } = req.params;
         return this.patientService.changeStatusAppointment(username, appointmentId, newStatus);
+    }
+
+    @Patch('addSummary/:appointmentId')
+    async addSummary(@Body() summary: SummaryDTO, @Req() req: Request, @Param('appointmentId') appointmentId: string) {
+    const username = req.user;
+    console.log("inside controller ")
+    console.log(summary)
+    return this.patientService.addAppointmentSummary(username, appointmentId, summary);
     }
 
 }

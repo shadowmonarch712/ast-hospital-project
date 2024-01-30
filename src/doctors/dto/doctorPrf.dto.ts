@@ -1,30 +1,27 @@
-// doctor.entity.ts
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+// doctorprf.dto.ts
+import { IsString, IsEmail, IsArray, IsObject, IsNumber, ArrayMinSize } from 'class-validator';
 
-@Schema()
-export class Doctor extends Document {
-  @Prop()
+export class DoctorPrfDto {
+  @IsString()
   firstName: string;
 
-  @Prop()
+  @IsString()
   lastName: string;
 
-  @Prop()
+  @IsEmail()
   email: string;
 
-  // Add other fields as needed
 
-  @Prop()
+  @IsString()
   password: string;
 
-  @Prop()
-  contactNumber: string;
+  @IsNumber()
+  contactNumber: number;
 
-  @Prop()
+  @IsString()
   specialization: string;
 
-  @Prop()
+  @IsObject()
   location: {
     address: string;
     coordinates: {
@@ -33,22 +30,21 @@ export class Doctor extends Document {
     };
   };
 
-  @Prop()
+  @IsArray()
+  @ArrayMinSize(1)
   education: Array<{
     degree: string;
     university: string;
     year: number;
   }>;
 
-  @Prop()
+  @IsArray()
   affiliations: string[];
 
-  @Prop()
+  @IsArray()
   experience: Array<{
     position: string;
     organization: string;
     duration: string;
   }>;
 }
-
-export const DoctorSchema = SchemaFactory.createForClass(Doctor);

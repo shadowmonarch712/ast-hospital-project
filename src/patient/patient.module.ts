@@ -6,10 +6,12 @@ import { PatientUser, PatientUserSchema } from './Schemas/patientUser.schema';
 import { JwtMiddleware } from './middlewares/jwt.middleware';
 import { JwtModule } from '@nestjs/jwt';
 import { PatientProfile, PatientProfileSchema } from './Schemas/patientProfile.schema';
+import { CreateAppointment, CreateAppointmentSchema } from './Schemas/patientAppointment.schema';
 
 @Module({
   imports: [MongooseModule.forFeature([{ name: PatientUser.name, schema: PatientUserSchema }]),
   MongooseModule.forFeature([{ name: PatientProfile.name, schema: PatientProfileSchema }]),
+  MongooseModule.forFeature([{ name: CreateAppointment.name, schema: CreateAppointmentSchema }]),
   JwtModule.register({
     secret: 'abc123',
     signOptions: { expiresIn: '1h' },

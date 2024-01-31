@@ -1,32 +1,34 @@
-// doctor.service.ts
 import { Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
-import { Doctor } from './doctors.entity';
-import { DoctorDto } from './doctors.dto';
+import { encodePassword } from 'src/utils/bcrypt';
+import { DoctorProfile } from './schemas/doctorsProfile.schema';
+import { DoctorUserSc } from './schemas/doctorsUser.schema';
+import { DoctorPrfDto } from './dto/doctorPrf.dto';
+import { DoctorUser } from './dto/doctorUser.dto';
+
 
 @Injectable()
-export class DoctorService {
-  constructor(@InjectModel(Doctor.name) private readonly doctorModel: Model<Doctor>) {}
+export class DoctorsService {
+    constructor(
+        @InjectModel(DoctorUserSc.name) private doctorUserModel: Model<DoctorUserSc>,
+        @InjectModel(DoctorProfile.name) private doctorProfileModel: Model<DoctorProfile>,
+      ) {}
 
-  async create(doctorDto: DoctorDto): Promise<Doctor> {
-    const createdDoctor = new this.doctorModel(doctorDto);
-    return createdDoctor.save();
-  }
+    
+    async DoctorUserDto(doctorDto: DoctorUser){
+        const password = encodePassword(doctorDto.password);
+        // const createdPatient = new this.patientUserModel(patientDto);
+        const createdDoctor = new this.doctorUserModel({
+          ...doctorDto,
+          password: password,
+      });
+        console.log("inside doctor service");
+        return createdDoctor.save();
+    }
 
-  async findAll(): Promise<Doctor[]> {
-    return this.doctorModel.find().exec();
-  }
-
-  async findOne(id: string): Promise<Doctor> {
-    return this.doctorModel.findById(id).exec();
-  }
-
-  async update(id: string, doctorDto: DoctorDto): Promise<Doctor> {
-    return this.doctorModel.findByIdAndUpdate(id, doctorDto, { new: true }).exec();
-  }
-
-  async remove(id: string): Promise<Doctor> {
-    return this.doctorModel.findByIdAndDelete(id).exec();
+    async DoctorPrfDto(username: any, createDoctorProfile: DoctorPrfDto) {
+      console.log(createDoctorProfile)
+      return this.doctorProfileModel.updateOne({ username }, { $set: createDoctorProfile });
   }
 }
